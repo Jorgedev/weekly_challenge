@@ -17,6 +17,8 @@ class CreateChallengesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->decimal('amount', 8, 2);	
+            $table->bigInteger('weeks');	
+            $table->text('description');	
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                     ->references('id')
