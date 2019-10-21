@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Challenge extends Model
 {
-    protected $fillable = ['name', 'amount', 'weeks', 'description', 'user_id'];
+    protected $fillable = ['name', 'amount', 'portion', 'description', 'user_id'];
 
     public function user()
     {

@@ -5,23 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Challenge;
 use App\Models\Week;
+use App\Models\Medal;
 use Carbon\Carbon;
 
 
 class ChallengeController extends Controller
 {
-    private $challenge;
-    private $week;
+   private $challenge;
+   private $week;
+		private $medal;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */    
-    public function __construct(Challenge $challenge, Week $week)
+    public function __construct(Challenge $challenge, Week $week, Medal $medal)
     {
         $this->challenge = $challenge;
         $this->week = $week;
+					$this->medal = $medal;
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +33,7 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -51,12 +54,14 @@ class ChallengeController extends Controller
      */
     public function store(Request $request)
     {
+					
         $challenge = auth()->user()->challenges()->create($request->all());   
         $accumulated = $deposit = 0;
-        for ($i=1; $i <= $challenge->weeks; $i++) { 
+        for ($i=1; $i <= $challenge->portion; $i++) { 
             $deposit += $challenge->amount;
             $accumulated += $deposit;
             $week = $challenge->weeks()->create([
+										'order' => $i,
                 'deposited_amount' => $deposit,
                 'deposit_at' => Carbon::now()->addDays(7*$i),
             ]);   
@@ -72,7 +77,12 @@ class ChallengeController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!$challenge = $this->challenge->find($id)) return redirect()->back(); $weeks = $challenge->weeks;
+
+        return view('challenges.index', compact('weeks'));
+       //dd($weeks);
+
+
     }
 
     /**

@@ -41,4 +41,8 @@ class User extends Authenticatable
     {
        return $this->hasMany(Challenge::class);
     }
+
+			public function medals(){
+					return $this->belongsToMany(Medal::class);
+			}
 }

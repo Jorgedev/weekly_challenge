@@ -11,43 +11,42 @@
             <li class="list-group-item d-flex justify-content-between bg-light">
                <div class="text-success">
                   <h6 class="my-0">Valor já arrecadado</h6>
-                  <small>EXAMPLECODE</small>
+                  <small>R$ {{$yes}}</small>
                </div>
-               <span class="text-success">-$5</span>
             </li>
             <li class="list-group-item d-flex justify-content-between lh-condensed">
                <div>
                   <h6 class="my-0">Lançamentos futuros</h6>
-                  <small class="text-muted">Brief description</small>
+                  <small class="text-muted">R$ {{$no}}</small>
                </div>
-               <span class="text-muted">$12</span>
             </li>
          </ul>
          <a href="" class="btn btn-outline-success btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Cadastrar novo objetivo</a>
       </div>
       <div class="col-md-8 order-md-1">
          <h4 class="mb-3">Objetivos cadastrados</h4>
-         <table class="table table-hover">
-            <thead>
+         <table class="table table-bordered">
+            <thead class="thead-light">
                <tr>
-                  <th scope="col">ID</th>
                   <th scope="col">Objetivo</th>
                   <th scope="col">Período</th>
-                  <th scope="col">Andamento</th>
+                  <th scope="col">Previsão</th>
                   <th scope="col">Ação</th>
                </tr>
             </thead>
             <tbody>
+               @php
+                    $test = 0;
+               @endphp
                @forelse ($challenges as $challenge)
                   <tr>
-                     <td>{{$challenge->id}}</td>
                      <td>{{$challenge->name}}</td>
-                     <td>{{$challenge->weeks}}</td>
-                     <td>{{$challenge->amount}}</td>
-                     <td><a href="" class="btn btn-outline-success"><i class="fas fa-eye"></i>Visualizar</a></td>
+                     <td>{{$challenge->portion}}</td>
+                     <td>R${{ $test =+ $challenge->weeks->sum('deposited_amount') }}</td>
+                     <td><a href="{{route('challenges.show', $challenge->id)}}" class="btn btn-sm btn-outline-success"><i class="fas fa-eye"></i></a></td>
                   </tr>
                @empty
-                   
+                  		 <td colspan="4">nenhum objetivo cadastrado</td>
                @endforelse
             </tbody>
          </table>
@@ -73,7 +72,7 @@
                   </div>
                   <div class="form-group col-md-3">
                      <label>Período</label>
-                     <select class="form-control" name="weeks">
+                     <select class="form-control" name="portion">
                         <option disabled selected>Selecione</option>
                         <option value="52">52 semanas</option>
                         <option value="104">104 semanas</option>

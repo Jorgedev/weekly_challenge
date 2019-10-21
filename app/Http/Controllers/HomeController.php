@@ -28,6 +28,21 @@ class HomeController extends Controller
     public function index()
     {
         $challenges = $this->challenge->get();
-        return view('home', compact('challenges'));        
+
+
+    	   $yes = 0; 
+			 $no = 0;
+        foreach($challenges as $key => $challenge){
+            foreach($challenge->weeks as $week){
+							if($week->deposit_status == 'yes'){
+									$yes += $week->deposited_amount;
+								}else{
+										$no += $week->deposited_amount;
+								}
+            }
+        }
+     
+
+       return view('home', compact('challenges','yes','no'));        
     }
 }

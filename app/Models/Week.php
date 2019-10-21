@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Week extends Model
 {
-    protected $fillable = ['deposited_amount', 'deposit_at', 'challenge_id'];
+    protected $fillable = ['order', 'deposited_amount', 'deposit_at', 'deposit_status', 'challenge_id'];
 
     public function challenge()
     {

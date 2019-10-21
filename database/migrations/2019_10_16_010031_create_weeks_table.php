@@ -15,8 +15,10 @@ class CreateWeeksTable extends Migration
     {
         Schema::create('weeks', function (Blueprint $table) {
             $table->bigIncrements('id');
+							$table->integer('order');
             $table->decimal('deposited_amount', 8, 2);	
-            $table->date('deposit_at');	
+            $table->timestamp('deposit_at');	
+            $table->enum('deposit_status', ['yes', 'no'])->default('no');
             $table->unsignedBigInteger('challenge_id');
             $table->foreign('challenge_id')
                     ->references('id')

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChallengesTable extends Migration
+class CreateMedalUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateChallengesTable extends Migration
      */
     public function up()
     {
-        Schema::create('challenges', function (Blueprint $table) {
+        Schema::create('medal_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->decimal('amount', 8, 2);	
-            $table->bigInteger('portion');	
-            $table->text('description');	
-            $table->unsignedBigInteger('user_id');
+							$table->unsignedBigInteger('medal_id');
+            $table->foreign('medal_id')
+                    ->references('id')
+                    ->on('medals')
+                    ->onDelete('cascade');
+							$table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
@@ -35,6 +36,6 @@ class CreateChallengesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('challenges');
+        Schema::dropIfExists('medal_user');
     }
 }
