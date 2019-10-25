@@ -5,7 +5,7 @@
       <div class="col-md-4 order-md-2 mb-4">
          <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Total de objetivos</span>
-            <span class="badge badge-secondary badge-pill">{{count($challenges)}}</span>
+            <span class="badge badge-primary badge-pill">{{count($challenges)}}</span>
          </h4>
          <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -21,7 +21,7 @@
                </div>
             </li>
          </ul>
-         <a href="" class="btn btn-outline-success btn-block" data-toggle="modal" data-target=".bd-example-modal-lg">Cadastrar novo objetivo</a>
+         <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">Cadastrar novo objetivo</a>
       </div>
       <div class="col-md-8 order-md-1">
          <h4 class="mb-3">Objetivos cadastrados</h4>
@@ -36,17 +36,17 @@
             </thead>
             <tbody>
                @php
-                    $test = 0;
+               $test = 0;
                @endphp
                @forelse ($challenges as $challenge)
-                  <tr>
-                     <td>{{$challenge->name}}</td>
-                     <td>{{$challenge->portion}}</td>
-                     <td>R${{ $test =+ $challenge->weeks->sum('deposited_amount') }}</td>
-                     <td><a href="{{route('challenges.show', $challenge->id)}}" class="btn btn-sm btn-outline-success"><i class="fas fa-eye"></i></a></td>
-                  </tr>
+               <tr>
+                  <td>{{$challenge->name}}</td>
+                  <td>{{$challenge->portion}}</td>
+                  <td>R${{ $test =+ $challenge->weeks->sum('deposited_amount') }}</td>
+                  <td><a href="{{route('challenges.show', $challenge->id)}}" class="btn btn-sm btn-outline-success btn-block"><i class="fas fa-eye"></i></a></td>
+               </tr>
                @empty
-                  		 <td colspan="4">nenhum objetivo cadastrado</td>
+               <td colspan="4">nenhum objetivo cadastrado</td>
                @endforelse
             </tbody>
          </table>
@@ -97,8 +97,8 @@
                </div>
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Fechar</button>
-               <button type="submit" class="btn btn-outline-success">Cadastrar novo objetivo</button>
+               <button type="button" class="btn btn-light" data-dismiss="modal">Fechar</button>
+               <button type="submit" class="btn btn-success">Cadastrar novo objetivo</button>
             </div>
          </div>
       </form>

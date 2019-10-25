@@ -19,4 +19,5 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('challenges', 'ChallengeController');
+Route::resource('challenges/{id}/weeks', 'WeekController');
 
