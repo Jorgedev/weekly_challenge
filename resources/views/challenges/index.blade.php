@@ -1,18 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-   @if(Session::has('message'))
-   <div class="row">
-      <div class="col-md-12">
-         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>Alerta!</strong> {{ Session::get('message') }}
-         </div>
-      </div>
-   </div>
-   @endif
+   @include('includes.alerts')
    <div class="row">
       <div class="col-md-12 order-md-1">
          <h4 class="mb-3">Objetivos cadastrados</h4>

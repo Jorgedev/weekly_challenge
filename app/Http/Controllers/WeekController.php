@@ -86,7 +86,7 @@ class WeekController extends Controller
         }
         $week->update($request->all());
 
-        return redirect()->back()->with('message', 'A '.$week->order.' ª semana foi atualizada com sucesso!');   
+        return redirect()->back()->with('success', 'A '.$week->order.' ª semana foi atualizada com sucesso!');   
     }
 
     /**

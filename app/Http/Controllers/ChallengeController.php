@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreChallenge;
 use App\Models\Challenge;
 use App\Models\Week;
 use App\Models\Medal;
@@ -11,9 +12,9 @@ use Carbon\Carbon;
 
 class ChallengeController extends Controller
 {
-   private $challenge;
-   private $week;
-		private $medal;
+    private $challenge;
+    private $week;
+    private $medal;
 
     /**
      * Create a new controller instance.
@@ -24,7 +25,7 @@ class ChallengeController extends Controller
     {
         $this->challenge = $challenge;
         $this->week = $week;
-					$this->medal = $medal;
+		$this->medal = $medal;
     }
     /**
      * Display a listing of the resource.
@@ -52,7 +53,7 @@ class ChallengeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreChallenge $request)
     {
 					
         $challenge = auth()->user()->challenges()->create($request->all());   
@@ -61,11 +62,16 @@ class ChallengeController extends Controller
             $deposit += $challenge->amount;
             $accumulated += $deposit;
             $week = $challenge->weeks()->create([
-										'order' => $i,
+				'order' => $i,
                 'deposited_amount' => $deposit,
                 'deposit_at' => Carbon::now()->addDays(7*$i),
             ]);   
         }
+
+        
+
+        /*$medal = $this->medal->find(2);
+        auth()->user()->medals()->attach($medal);*/
         return redirect()->back()->with('success', 'Objetivo cadastrado com sucesso!'); 
     }
 

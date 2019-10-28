@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Challenge;
+use App\Models\Medal;
 
 class HomeController extends Controller
 {
@@ -14,10 +15,11 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(Challenge $challenge)
+    public function __construct(Challenge $challenge, Medal $medal)
     {
         $this->middleware('auth');
         $this->challenge = $challenge;
+        $this->medal = $medal;
     }
 
     /**
@@ -27,22 +29,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $challenges = $this->challenge->get();
-
-
-    	   $yes = 0; 
-			 $no = 0;
+        $challenges = $this->challenge->paginate(5);
+        $medals = auth()->user()->medals;
+        
+    	$yes = 0; 
+		$no = 0;
         foreach($challenges as $key => $challenge){
             foreach($challenge->weeks as $week){
-							if($week->deposit_status == 'yes'){
-									$yes += $week->deposited_amount;
-								}else{
-										$no += $week->deposited_amount;
-								}
+				if($week->deposit_status == 'yes'){
+					$yes += $week->deposited_amount;
+				}else{
+			        $no += $week->deposited_amount;
+				}
             }
         }
-     
 
-       return view('home', compact('challenges','yes','no'));        
+       return view('home', compact('challenges','medals','yes','no'));        
     }
 }

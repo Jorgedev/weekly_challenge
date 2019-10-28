@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+   @include('includes.alerts')
    <div class="row">
       <div class="col-md-4 order-md-2 mb-4">
          <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Total de objetivos</span>
-            <span class="badge badge-primary badge-pill">{{count($challenges)}}</span>
+            <span class="badge badge-primary badge-pill">{{ $challenges->total() }}</span>
          </h4>
          <ul class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -22,6 +23,24 @@
             </li>
          </ul>
          <a href="#" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg">Cadastrar novo objetivo</a>
+         <h4 class="d-flex justify-content-between align-items-center mb-3 pt-5">
+            <span class="text-muted">Minhas medalhas</span>
+            <span class="badge badge-primary badge-pill">{{count($medals)}}</span>
+         </h4>
+
+         @forelse ($medals as $medal)
+            <div class="card mb-2">
+               <div class="row no-gutters">
+                  <div class="col-md-12">
+                     <div class="card-body">
+                        <h6 class="card-title"><i class="fa fa-{{$medal->icon}}"></i> {{$medal->name}}</h6>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         @empty
+             
+         @endforelse
       </div>
       <div class="col-md-8 order-md-1">
          <h4 class="mb-3">Objetivos cadastrados</h4>
@@ -50,6 +69,7 @@
                @endforelse
             </tbody>
          </table>
+         {{ $challenges->links() }}
       </div>
    </div>
 </div>
