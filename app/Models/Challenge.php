@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Multitenantable;
 
 class Challenge extends Model
 {
+    use Multitenantable;
+
     protected $fillable = ['name', 'amount', 'portion', 'description', 'user_id'];
 
     public function user()
